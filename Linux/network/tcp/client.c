@@ -33,23 +33,21 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
-	fgets(mesg, BUFSIZ, stdin);
-	if(send(ssock, mesg, BUFSIZ, MSG_DONTWAIT) <= 0) {
-		perror("send()");
-		return -1;
-	}
+		fgets(mesg, BUFSIZ, stdin);
+		if(send(ssock, mesg, BUFSIZ, MSG_DONTWAIT) <= 0) {
+			perror("send()");
+			return -1;
+		}
 
-	shutdown(ssock, SHUT_WR);
 
-	memset(mesg, 0, BUFSIZ);
-	if(recv(ssock, mesg, BUFSIZ, 0) <= 0) {
-		perror("recv()");
-		return -1;
-	}
+		memset(mesg, 0, BUFSIZ);
+		if(recv(ssock, mesg, BUFSIZ, 0) <= 0) {
+			perror("recv()");
+			return -1;
+		}
 
-	shutdown(ssock, SHUT_RD);
 
-	printf("Client Receive  : %s ", mesg);
+		printf("Client Receive  : %s ", mesg);
 
 	close(ssock);
 
