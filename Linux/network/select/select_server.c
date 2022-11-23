@@ -38,14 +38,12 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
-
-	FD_ZERO(&readfd);
 	maxfd = ssock;
 	client_index = 0;
 
 	do {
+		FD_ZERO(&readfd);
 		FD_SET(ssock, &readfd);
-
 		for (start_index = 0; start_index < client_index; start_index++) {
 			FD_SET(client_fd[start_index], &readfd);
 			if(client_fd[start_index] > maxfd)
@@ -82,9 +80,9 @@ int main(int argc, char **argv)
 				if((n = read(client_fd[start_index], mesg, sizeof(mesg))) > 0) {
 					printf("Received data : %s", mesg);
 					write(client_fd[start_index], mesg, n);
-					close(client_fd[start_index]);
-					FD_CLR(client_fd[start_index], &readfd);
-					client_index--;
+//					close(client_fd[start_index]);
+//					FD_CLR(client_fd[start_index], &readfd);
+//					client_index--;
 				}
 			}
 		}
