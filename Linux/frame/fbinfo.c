@@ -4,7 +4,7 @@
 #include <linux/fb.h>
 #include <sys/ioctl.h>
 
-#define FBDEVICE "/dev/fb0"
+#define FBDEVICE "/dev/fb1"
 
 int main(int argc, char **argv)
 {
@@ -15,11 +15,16 @@ int main(int argc, char **argv)
 
 	fbfd = open(FBDEVICE, O_RDWR);
 	if(fbfd < 0) {
-		perror("Error reading fixed information");
+		perror("Error : cannot open framebuffer device");
 		return -1;
 	}
 
-	if(ioctl(fbfd, FBIOGET_FSCREENINFO, &vinfo) < 0) {
+	if(ioctl(fbfd, FBIOGET_FSCREENINFO, &finfo) < 0) {
+		perror("Error reading variable information");
+		return -1;
+	}
+
+	if(ioctl(fbfd, FBIOGET_VSCREENINFO, &vinfo) < 0) {
 		perror("Error reading variable information");
 		return -1;
 	}
