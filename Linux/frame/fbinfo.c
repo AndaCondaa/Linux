@@ -4,7 +4,7 @@
 #include <linux/fb.h>
 #include <sys/ioctl.h>
 
-#define FBDEVICE "/dev/fb1"
+#define FBDEVICE "/dev/fb0"
 
 int main(int argc, char **argv)
 {
