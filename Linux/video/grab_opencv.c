@@ -8,7 +8,6 @@
 #include <sys/types.h>
 #include <linux/fb.h>
 #include <linux/types.h>
-#include <linux/videodev.h>
 
 #include <opencv/cv.h>
 #include <opencv/highgui.h>
