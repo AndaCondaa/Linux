@@ -105,13 +105,6 @@ int main(int argc, char** argv) {
 			outimg[(j*xFactor+3)+(width*xFactor*i*yFactor)+(width*xFactor*3)+2] = (inimg[j+(i*width)+2] + inimg[(j+3)+(i*width)+2] +inimg[j+((i+3)*width)+2] + inimg[(j+3) + ((i+3)*width)+2]) / 4;
 		};
 	 };	  
-
-
-
-
-
-
-
 	
 	width*=xFactor, height*=yFactor; 
 	size=widthbytes(bits*width); 
