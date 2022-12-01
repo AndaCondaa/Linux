@@ -109,7 +109,7 @@ int main(int argc, char** argv) {
 	width*=xFactor, height*=yFactor; 
 	size=widthbytes(bits*width); 
 	imagesize=height*size; 
-	offset+=256*sizeof(RGBQUAD);
+	//offset+=256*sizeof(RGBQUAD);
 	
 	if((fp=fopen(output, "wb"))==NULL) { 
 		fprintf(stderr, "Error : Failed to open file...₩n"); 
@@ -133,7 +133,7 @@ int main(int argc, char** argv) {
 	fwrite(&vresolution, sizeof(int), 1, fp); 
 	fwrite(&ncolors, sizeof(unsigned int), 1, fp); 
 	fwrite(&importantcolors, sizeof(unsigned int), 1, fp);
-	fwrite(palrgb, sizeof(unsigned int), 256, fp); 
+	//fwrite(palrgb, sizeof(unsigned int), 256, fp); 
 	
 	fwrite(outimg, sizeof(unsigned char), imagesize, fp);
 	
