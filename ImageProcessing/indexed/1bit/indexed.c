@@ -38,18 +38,15 @@ int main(int argc, char** argv) {
 	fread(palrgb, sizeof(RGBQUAD), bmpInfoHeader.biClrUsed, fp);
 	
 	//size = widthbytes(bmpInfoHeader.biBitCount * bmpInfoHeader.biWidth);
-	/*
+	
 	if(!bmpInfoHeader.SizeImage){
 		bmpInfoHeader.SizeImage = bmpInfoHeader.biHeight * bmpInfoHeader.biWidth;
-		bmpInfoHeader.SizeImage = bmpInfoHeader.biHeight * size;
 	}
-	*/
+	
 	printf("imagesize: %d\n", bmpInfoHeader.SizeImage);
 
 	inimg=(BYTE*)malloc(sizeof(BYTE)*bmpInfoHeader.biWidth*bmpInfoHeader.biHeight/8); 
-	//inimg=(BYTE*)malloc(sizeof(BYTE)*bmpInfoHeader.SizeImage/8); 
 	outimg=(BYTE*)malloc(sizeof(BYTE)*bmpInfoHeader.biWidth*bmpInfoHeader.biHeight*3); 
-	//outimg=(BYTE*)malloc(sizeof(BYTE)*bmpInfoHeader.SizeImage*3); 
 	fread(inimg, sizeof(BYTE), bmpInfoHeader.SizeImage, fp); 
 	
 	fclose(fp);
