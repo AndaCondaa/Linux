@@ -5,7 +5,7 @@
 
 #define BYTE unsigned char
 
-#define widthbytes(bits) (((bits)+31)/32*4)
+#define widthbytes(bits) ((((bits)+31)/32)*4)
 
 int main(int argc, char** argv) {
 	FILE* fp; 
@@ -36,28 +36,23 @@ int main(int argc, char** argv) {
 
 	palrgb = (RGBQUAD*)malloc(sizeof(RGBQUAD)*bmpInfoHeader.biClrUsed);
 	fread(palrgb, sizeof(RGBQUAD), bmpInfoHeader.biClrUsed, fp);
-	
-	//size = widthbytes(bmpInfoHeader.biBitCount * bmpInfoHeader.biWidth);
-	/*
+
+	size = widthbytes(bmpInfoHeader.biBitCount * bmpInfoHeader.biWidth);
+
 	if(!bmpInfoHeader.SizeImage){
-		bmpInfoHeader.SizeImage = bmpInfoHeader.biHeight * bmpInfoHeader.biWidth;
 		bmpInfoHeader.SizeImage = bmpInfoHeader.biHeight * size;
 	}
-	*/
-	printf("imagesize: %d\n", bmpInfoHeader.SizeImage);
 
-	inimg=(BYTE*)malloc(sizeof(BYTE)*bmpInfoHeader.biWidth*bmpInfoHeader.biHeight/8); 
-	//inimg=(BYTE*)malloc(sizeof(BYTE)*bmpInfoHeader.SizeImage/8); 
+	inimg=(BYTE*)malloc(sizeof(BYTE)*bmpInfoHeader.biWidth*bmpInfoHeader.biHeight/2); 
 	outimg=(BYTE*)malloc(sizeof(BYTE)*bmpInfoHeader.biWidth*bmpInfoHeader.biHeight*3); 
-	//outimg=(BYTE*)malloc(sizeof(BYTE)*bmpInfoHeader.SizeImage*3); 
 	fread(inimg, sizeof(BYTE), bmpInfoHeader.SizeImage, fp); 
 	
 	fclose(fp);
 	
 	int pos = 0;
-	for(i=0; i<bmpInfoHeader.biHeight*bmpInfoHeader.biWidth/8; i++) { 
-		for (int k = 7; k >= 0; --k) {
-				int result = inimg[i] >> k & 1;
+	for(i=0; i<bmpInfoHeader.biHeight*bmpInfoHeader.biWidth/2; i++) { 
+		for (int k = 4; k >= 0; k-=4) {
+				int result = inimg[i] >> k & 15;
 				outimg[pos++] = palrgb[result].rgbBlue;
 				outimg[pos++] = palrgb[result].rgbGreen;
 				outimg[pos++] = palrgb[result].rgbRed;
@@ -71,11 +66,9 @@ int main(int argc, char** argv) {
 
 	bmpInfoHeader.biBitCount = 24;
 	bmpInfoHeader.SizeImage = bmpInfoHeader.biWidth*bmpInfoHeader.biHeight*3;
-	//bmpInfoHeader.SizeImage = bmpInfoHeader.SizeImage*3;
 	bmpInfoHeader.biClrUsed = 0;
 	bmpHeader.bfSize = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER) + bmpInfoHeader.SizeImage;
 	bmpHeader.bfOffBits = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER);
-	printf("%d + %d = %d\n" , sizeof(BITMAPFILEHEADER), sizeof(BITMAPINFOHEADER), bmpHeader.bfOffBits);
 
 	fwrite(&bmpHeader, sizeof(BITMAPFILEHEADER), 1, fp);
 	fwrite(&bmpInfoHeader, sizeof(BITMAPINFOHEADER), 1, fp);
@@ -85,6 +78,6 @@ int main(int argc, char** argv) {
 	free(outimg);
 	
 	fclose(fp); 
-	
+
 	return 0;
 }
