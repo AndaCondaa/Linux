@@ -75,13 +75,8 @@ void main(int argc, char** argv)
 	fread(inimg, sizeof(BYTE), imagesize, fp);
 	fclose(fp);
 
-	for(i = 0; i < height; i++) {
-		index = (height-i-1) * size; 
-		for(j = 0 ; j < width; j++) {
-			outimg[index+3*j+0] = inimg[size*i+3*j+0];
-			outimg[index+3*j+1] = inimg[size*i+3*j+1];
-			outimg[index+3*j+2] = inimg[size*i+3*j+2];
-		};
+	for(i = 0; i < height*width*3; i++) {
+		outimg[i] = ~inimg[i];
 	};
  
 	offset += 256*sizeof(RGBQUAD); 
