@@ -63,7 +63,6 @@ int main(int argc, char** argv) {
 		palrgb[k].rgbBlue=k;
 	}	
 
-
 	int pos = 0;
 	for(i=0; i<bmpInfoHeader.biHeight*bmpInfoHeader.biWidth; i++) { 
 		int r = inimg[(i*3)+2];
@@ -81,7 +80,7 @@ int main(int argc, char** argv) {
 	bmpInfoHeader.biBitCount = 8;
 	bmpInfoHeader.SizeImage = bmpInfoHeader.biWidth*bmpInfoHeader.biHeight*1;
 	bmpInfoHeader.biClrUsed = 0;
-	bmpHeader.bfSize = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER) + bmpInfoHeader.SizeImage;
+	bmpHeader.bfSize = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER) + sizeof(RGBQUAD)*256 + bmpInfoHeader.SizeImage;
 	bmpHeader.bfOffBits = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER) + sizeof(RGBQUAD)*256;
 
 	fwrite(&bmpHeader, sizeof(BITMAPFILEHEADER), 1, fp);
