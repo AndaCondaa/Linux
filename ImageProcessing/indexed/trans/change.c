@@ -46,9 +46,6 @@ int main(int argc, char** argv) {
 		bmpInfoHeader.SizeImage = bmpInfoHeader.biHeight * size;
 	}
 
-
-
-
 	float Bpp = bmpInfoHeader.biBitCount / 8.;
 
 	printf("%f\n", Bpp);
