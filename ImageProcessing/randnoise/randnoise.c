@@ -33,7 +33,6 @@ int main(int argc, char** argv) {
 	
 	strcpy(input, argv[1]); 
 	strcpy(output, argv[2]);
-	strcpy(count, argv[3]);
 	
 	if((fp=fopen(input, "rb"))==NULL) { 
 		fprintf(stderr, "Error : Failed to open file...₩n"); 
@@ -70,7 +69,7 @@ int main(int argc, char** argv) {
 	};	  
 
 
-	for(i=0; i<30000; i++){
+	for(i=0; i<10000; i++){
 		int noise = rand() & 0b11111111;
 		int pos = rand() % (bmpInfoHeader.biHeight*bmpInfoHeader.biWidth);
 		for(int z = 0; z<3; z++) {
