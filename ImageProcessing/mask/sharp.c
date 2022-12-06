@@ -95,7 +95,7 @@ int main(int argc, char** argv)
 	for(y=1; y < bmpInfoHeader.biHeight+1; y++) {
 		for(x=1; x < (bmpInfoHeader.biWidth+1); x++) {
 			for(z=0; z < elemSize; z++) {
-				float sum = 0.0;
+			float sum = 0.0;
 				for (int i = -1; i < 2; i++) {
 					for(int j = -1; j < 2; j++) {
 						sum += kernel[i+1][j+1]*padding[(x+i)*3+(y+j)*(bmpInfoHeader.biWidth+2)*3+z];

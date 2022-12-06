@@ -88,7 +88,7 @@ int main(int argc, char** argv)
 			midimg[index+3*j] = midimg[index+3*j+1] = midimg[index+3*j+2] = gray;
 		};
 	};
-	
+
 #if 1		// Sobel
 	for(i = 1; i < height - 1; i++) {
 		index = (height-i-1) * size; 
