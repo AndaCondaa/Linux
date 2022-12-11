@@ -26,7 +26,7 @@ int main(int argc, char **argv)
 	fread(&bmpInfoHeader, sizeof(BITMAPINFOHEADER), 1, file);
 
 	if(bmpInfoHeader.biBitCount != 24) {
-		perror("you can use only 24bit image\n");
+		perror("You can use only 24bit image\n");
 		return -1;	
 	}
 
