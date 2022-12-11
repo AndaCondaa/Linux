@@ -1,3 +1,10 @@
+/*
+ * HomeWork #1
+ * Make Program for printing Pixels' Values(BGR) by using only BMPFILEHEAEDER(P480)
+ * Input: BMP File name 
+ * Output: (255, 255, 255)
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -5,17 +12,18 @@
 
 int main(int argc, char **argv)
 {
-	FILE *inputFile;
+	
+	FILE *file;
 
 	BITMAPFILEHEADER bmpHeader;
 	BITMAPINFOHEADER bmpInfoHeader;
 	unsigned char *image; 
 
-	inputFile = fopen(argv[1], "rb");
-	//inputFile = open(argv[1], O_RDONLY);
+	file = fopen(argv[1], "rb");
+	//file = open(argv[1], O_RDONLY);
 
-	fread(&bmpHeader, sizeof(BITMAPFILEHEADER), 1, inputFile);
-	fread(&bmpInfoHeader, sizeof(BITMAPINFOHEADER), 1, inputFile);
+	fread(&bmpHeader, sizeof(BITMAPFILEHEADER), 1, file);
+	fread(&bmpInfoHeader, sizeof(BITMAPINFOHEADER), 1, file);
 
 	if(bmpInfoHeader.biBitCount != 24) {
 		perror("you can use only 24bit image\n");
@@ -29,16 +37,13 @@ int main(int argc, char **argv)
 	image = (unsigned char*)malloc\
 		(sizeof(unsigned char) * bmpInfoHeader.SizeImage);
 
-	fread(image, sizeof(unsigned char), bmpInfoHeader.SizeImage, inputFile);
+	fread(image, sizeof(unsigned char), bmpInfoHeader.SizeImage, file);
 	
 	for(int i=0; i < bmpInfoHeader.SizeImage; i+=bmpInfoHeader.biBitCount/8) {
 		printf("(%d, %d, %d)\n", image[i], image[i+1], image[i+2]);
 	}
 
-	
-
-
-	fclose(inputFile);
+	fclose(file);
 
 
 	return 0;

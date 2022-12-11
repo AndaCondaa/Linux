@@ -22,13 +22,11 @@ int main(int argc, char** argv)
 
     fread(&bmpHeader, sizeof(BITMAPFILEHEADER), 1, fp);
     fread(&bmpInfoHeader, sizeof(BITMAPINFOHEADER), 1, fp);
-    printf("%d\n" , bmpInfoHeader.biClrUsed);
-    printf("%d\n" , bmpInfoHeader.biBitCount);
+
     if(bmpInfoHeader.biBitCount == 8 && bmpInfoHeader.biClrUsed == 0) {
-	printf("line : %d\n", __LINE__);
 	bmpInfoHeader.biClrUsed = 256;
     }
-    printf("%d\n" , bmpInfoHeader.biClrUsed);
+
     palrgb = (RGBQUAD*)malloc(sizeof(RGBQUAD)*bmpInfoHeader.biClrUsed);
     fread(palrgb, sizeof(RGBQUAD), bmpInfoHeader.biClrUsed, fp); 
 
