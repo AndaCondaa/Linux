@@ -1,6 +1,6 @@
 /*
  * HomeWork #1
- * Make Program for printing Pixels' Values(BGR) by using only BMPFILEHEAEDER(P480)
+ * Make Program for printing Pixels' Values(BGR) by using only Bitmap Headers(P480)
  * Input: BMP File name 
  * Output: (255, 255, 255)
  */
@@ -12,7 +12,6 @@
 
 int main(int argc, char **argv)
 {
-	
 	FILE *file;
 
 	BITMAPFILEHEADER bmpHeader;
@@ -44,7 +43,6 @@ int main(int argc, char **argv)
 	}
 
 	fclose(file);
-
 
 	return 0;
 }
