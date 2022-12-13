@@ -44,7 +44,7 @@ int main(int argc, char** argv)
     
     int mask = 0b0;
     for(int x = 0; x < bmpInfoHeader.biBitCount; x++) {
-	mask |= 0b1 << x;
+	mask |= (0b1 << x);
     }
 
     int pos = 0; 

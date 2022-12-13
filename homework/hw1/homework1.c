@@ -12,23 +12,26 @@
 
 int main(int argc, char **argv)
 {
+	//Variable declaration 
 	FILE *file;
-
 	BITMAPFILEHEADER bmpHeader;
 	BITMAPINFOHEADER bmpInfoHeader;
 	unsigned char *image; 
 
+	//Open the input file
 	file = fopen(argv[1], "rb");
-	//file = open(argv[1], O_RDONLY);
 
+	//Read bitmap headers
 	fread(&bmpHeader, sizeof(BITMAPFILEHEADER), 1, file);
 	fread(&bmpInfoHeader, sizeof(BITMAPINFOHEADER), 1, file);
 
+	//Check the bit count whether it is 24bit or not 
 	if(bmpInfoHeader.biBitCount != 24) {
 		perror("You can use only 24bit image\n");
 		return -1;	
 	}
 
+	
 	if (bmpInfoHeader.SizeImage == 0)
 		bmpInfoHeader.SizeImage = \
 			bmpInfoHeader.biWidth * bmpInfoHeader.biHeight * bmpInfoHeader.biBitCount / 8; 
