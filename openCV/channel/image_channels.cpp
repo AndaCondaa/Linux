@@ -5,7 +5,7 @@ using namespace std;
 
 int main()
 {
-	Mat image = imread("./Lenna.jpg", IMREAD_COLOR);
+	Mat image = imread("../flower.jpg", IMREAD_COLOR);
 	CV_Assert(image.data);
 
 	Mat bgr[3];
