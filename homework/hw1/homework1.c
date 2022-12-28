@@ -19,8 +19,8 @@ int main(int argc, char **argv)
 	FILE *file;
 	BITMAPFILEHEADER bmpHeader;
 	BITMAPINFOHEADER bmpInfoHeader;
-	unsigned char *image; 
-	unsigned int widthBits;
+	unsigned char *inImage; 
+	unsigned int widthBits, index;
 
 	//Open the input file
 	file = fopen(argv[1], "rb");
@@ -41,17 +41,18 @@ int main(int argc, char **argv)
 		bmpInfoHeader.SizeImage = widthBits * bmpInfoHeader.biHeight;
 	}
 	
-	image = (unsigned char*)malloc \
+	inImage = (unsigned char*)malloc \
 		(sizeof(unsigned char) * bmpInfoHeader.SizeImage);
-	memset(image, 0, bmpInfoHeader.SizeImage);
+	memset(inImage, 0, bmpInfoHeader.SizeImage);
 
-	fread(image, sizeof(unsigned char), bmpInfoHeader.SizeImage, file);
+	fread(inImage, sizeof(unsigned char), bmpInfoHeader.SizeImage, file);
 	fclose(file);
 	
 	for (int y=bmpInfoHeader.biHeight-1; y >= 0 ; y--) {
 		for (int x=0; x < bmpInfoHeader.biWidth; x++) { 
+			index = (x*3) + (y*widthBits); 
 			printf("(r = %3d, g = %3d, b = %3d)\n",
-	       			image[(x*3+2)+(y*widthBits)], image[(x*3+1)+(y*widthBits)], image[(x*3)+(y*widthBits)]);
+	       			inImage[index+2], inImage[index+1], inImage[index]);
 		}
 	}
 
