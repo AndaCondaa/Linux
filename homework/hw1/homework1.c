@@ -22,8 +22,16 @@ int main(int argc, char **argv)
 	unsigned char *inImage; 
 	unsigned int widthBits, index;
 
+	if (argc != 2) {
+		fprintf(stderr, "This file(%s) needs two of Command Line Arguments.\n", __FILE__);
+		return -1;
+	}
+
 	//Open the input file
-	file = fopen(argv[1], "rb");
+	if ((file = fopen(argv[1], "rb")) == NULL) {
+		fprintf(stderr, "Failed to open file\n");
+		return -1;
+	}
 
 	//Read bitmap headers
 	fread(&bmpHeader, sizeof(BITMAPFILEHEADER), 1, file);
@@ -41,8 +49,7 @@ int main(int argc, char **argv)
 		bmpInfoHeader.SizeImage = widthBits * bmpInfoHeader.biHeight;
 	}
 	
-	inImage = (unsigned char*)malloc \
-		(sizeof(unsigned char) * bmpInfoHeader.SizeImage);
+	inImage = (unsigned char*)malloc(sizeof(unsigned char) * bmpInfoHeader.SizeImage);
 	memset(inImage, 0, bmpInfoHeader.SizeImage);
 
 	fread(inImage, sizeof(unsigned char), bmpInfoHeader.SizeImage, file);
@@ -55,6 +62,8 @@ int main(int argc, char **argv)
 	       			inImage[index+2], inImage[index+1], inImage[index]);
 		}
 	}
+
+	free(inImage);
 
 	return 0;
 }
