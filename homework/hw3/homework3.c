@@ -43,7 +43,7 @@ int main(int argc, char **argv)
 	}
 	
 	// 패딩을 고려한 가로의 바이트 수 계산
-	widthBytes = paddingWidthBits(bmpInfoHeader.biBitCount, bmpInfoHeader.biWidth);
+	widthBytes = paddingWidthBytes(bmpInfoHeader.biBitCount, bmpInfoHeader.biWidth);
 
 	// 이미지의 사이즈 계산
 	if (!bmpInfoHeader.SizeImage) {

@@ -63,7 +63,7 @@ int main(int argc, char **argv)
 	// BMP 파일은 이미지가 상하반전된 형태로 데이터가 저장되므로, 이를 고려하여 출력
 	for (int y=bmpInfoHeader.biHeight-1; y >= 0 ; y--) {
 		for (int x=0; x < bmpInfoHeader.biWidth; x++) { 
-			index = (x*3) + (y*widthBits); 
+			index = (x*3) + (y*widthBytes); 
 			printf("(r = %3d, g = %3d, b = %3d)\n",
 	       			inImage[index+2], inImage[index+1], inImage[index]);
 		}

@@ -55,7 +55,7 @@ int main(int argc, char **argv)
 	
 	// 이미지의 사이즈 계산
 	if (!bmpInfoHeader.SizeImage) {
-		bmpInfoHeader.SizeImage = widthBits * bmpInfoHeader.biHeight;
+		bmpInfoHeader.SizeImage = widthBytes * bmpInfoHeader.biHeight;
 	}
 	
 	// Read/Write를 위한 버퍼공간 생성 및 초기화
