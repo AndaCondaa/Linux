@@ -29,7 +29,7 @@ int main(int argc, char **argv)
 
 	//Open the input file
 	if ((file = fopen(argv[1], "rb")) == NULL) {
-		fprintf(stderr, "Failed to open file\n");
+		fprintf(stderr, "Failed to open file(%s)\n", argv[1]);
 		return -1;
 	}
 

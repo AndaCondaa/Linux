@@ -1,6 +1,6 @@
 /*
  * HomeWork #3
- * 2중 for 루프를 1중 for 루프로 변경하세요.
+ *
  */
 
 #include <stdio.h>
@@ -11,13 +11,13 @@
 
 unsigned int paddingWidthBits(unsigned short bitCount, unsigned int width);
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
 	//Variable declaration 
-	FILE* file;
+	FILE *file;
 	BITMAPFILEHEADER bmpHeader;
 	BITMAPINFOHEADER bmpInfoHeader;
-	unsigned char* inImage;
+	unsigned char *inImage, *outImage; 
 	unsigned int widthBits, index;
 
 	if (argc != 3) {
@@ -27,7 +27,7 @@ int main(int argc, char** argv)
 
 	//Open the input file
 	if ((file = fopen(argv[1], "rb")) == NULL) {
-		fprintf(stderr, "Failed to open file\n");
+		fprintf(stderr, "Failed to open file(%s)\n", argv[1]);
 		return -1;
 	}
 
@@ -38,30 +38,40 @@ int main(int argc, char** argv)
 	//Check the bit count whether it is 24bit or not 
 	if (bmpInfoHeader.biBitCount != 24) {
 		perror("You can use only 24bit image\n");
-		return -1;
+		return -1;	
 	}
-
+	
 	widthBits = paddingWidthBits(bmpInfoHeader.biBitCount, bmpInfoHeader.biWidth);
 
 	if (!bmpInfoHeader.SizeImage) {
 		bmpInfoHeader.SizeImage = widthBits * bmpInfoHeader.biHeight;
 	}
-
+	
 	inImage = (unsigned char*)malloc(sizeof(unsigned char) * bmpInfoHeader.SizeImage);
+	outImage = (unsigned char*)malloc(sizeof(unsigned char) * bmpInfoHeader.SizeImage);
 	memset(inImage, 0, bmpInfoHeader.SizeImage);
+	memset(outImage, 0, bmpInfoHeader.SizeImage);
 
 	fread(inImage, sizeof(unsigned char), bmpInfoHeader.SizeImage, file);
 	fclose(file);
-
-	for (int y = bmpInfoHeader.biHeight - 1; y >= 0; y--) {
-		for (int x = 0; x < bmpInfoHeader.biWidth; x++) {
-			index = (x * 3) + (y * widthBits);
-			printf("(r = %3d, g = %3d, b = %3d)\n",
-				inImage[index + 2], inImage[index + 1], inImage[index]);
-		}
+	
+	for (int i = 0; i < bmpInfoHeader.SizeImage; i++) {
+		outImage[i] = inImage[i];
 	}
 
+	if ((file = fopen(argv[2], "wb")) == NULL) {
+		fprintf(stderr, "Failed to open file(%s)\n", argv[2]);
+		return -1;
+	}
+
+	fwrite(&bmpHeader, sizeof(BITMAPFILEHEADER), 1, file);
+	fwrite(&bmpInfoHeader, sizeof(BITMAPINFOHEADER), 1, file);
+	fwrite(outImage, sizeof(unsigned char), bmpInfoHeader.SizeImage, file);
+
+	fclose(file);
+
 	free(inImage);
+	free(outImage);
 
 	return 0;
 }
@@ -69,7 +79,7 @@ int main(int argc, char** argv)
 unsigned int paddingWidthBits(unsigned short bitCount, unsigned int width)
 {
 	unsigned int widthBits = bitCount * width;
-	unsigned int padWidth = ((widthBits + 31) / 32) * 4;
+	unsigned int padWidth = ((widthBits+31)/32)*4;
 
 	return padWidth;
 }

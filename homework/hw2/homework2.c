@@ -94,11 +94,12 @@ int main(int argc, char **argv)
 
 	fwrite(&bmpHeader, sizeof(BITMAPFILEHEADER), 1, file);
 	fwrite(&bmpInfoHeader, sizeof(BITMAPINFOHEADER), 1, file);
-	fwrite(palette, sizeof(RGBQUAD), 256, file); 
+	fwrite(palette, sizeof(RGBQUAD), PAL_COUNT, file); 
 	fwrite(outImage, sizeof(unsigned char), bmpInfoHeader.biWidth*bmpInfoHeader.biHeight*1, file);
 	
 	free(inImage); 
 	free(outImage);
+	free(palette);
 
 	fclose(file);
 
