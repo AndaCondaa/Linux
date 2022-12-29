@@ -20,8 +20,8 @@ int main(int argc, char** argv)
 	unsigned char* inImage;
 	unsigned int widthBits, index;
 
-	if (argc != 2) {
-		fprintf(stderr, "This file(%s) needs two of Command Line Arguments.\n", __FILE__);
+	if (argc != 3) {
+		fprintf(stderr, "This file(%s) needs three of Command Line Arguments.\n", __FILE__);
 		return -1;
 	}
 
