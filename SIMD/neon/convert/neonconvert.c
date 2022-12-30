@@ -1,3 +1,5 @@
+// gcc -O3 
+
 #include <stdio.h>
 #include <stdlib.h> /* malloc() 함수와 free() 함수를 위해서 사용한다. */
 #include <string.h> /* memcpy() 함수를 위해서 사용한다. */
