@@ -26,7 +26,7 @@ int main()
 		printf("Texture Alignment: %ld\n", prop.textureAlignment);
 		printf("\n");
 		printf(" --- MP Information for device %d ---\n", i);
-		printf("Mul1processor count: %d\n", prop.multiProcessorCount);
+		printf("Multiprocessor count: %d\n", prop.multiProcessorCount);
 		printf("Shared mem per mp: %ld\n", prop.sharedMemPerBlock);
 		printf("Registers per mp: %d\n", prop.regsPerBlock);
 		printf("Threads in warp: %d\n", prop.warpSize);
