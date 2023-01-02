@@ -22,7 +22,7 @@ int main()
 {
 	printf("CUDA Version %i\n", CUDA_VERSION);
 	//printf("CUDA Version %s\n", VERSION_STATUS);
-	printf("\nttriver\n");
+	printf("\nDriver\n");
 	
 	cuInit(0);
 	
