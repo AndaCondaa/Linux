@@ -122,6 +122,10 @@ int main(int argc, char** argv)
 					outimg[x+y*size+z] = sum / 9.;
         			} else if (y == (bmpInfoHeader.biWidth-1)) {
 
+				} else {
+					if (x == 0) {
+					} else {
+					}
 				}
     			}         
 		}
