@@ -82,21 +82,49 @@ int main(int argc, char** argv)
 	}
 	*/
 
+
+	ubyte arr[9] = {0,};
+
 	memset(outimg, 0, sizeof(ubyte)*imageSize);
     	for(int y = 0; y < bmpInfoHeader.biHeight ; y++) { 
        		for(int x = 0; x < (bmpInfoHeader.biWidth) * elemSize; x+=elemSize) {
             		for(int z = 0; z < elemSize; z++) {
                 		float sum = 0.0;
-				if ((x>0 && x<bmpInfoHeader.biWidth) && (y>0 && y<bmpInfoHeader.biHeight)) {
+				if ((x>0 && x<(bmpInfoHeader.biWidth-1)*elemSize) && (y>0 && y<bmpInfoHeader.biHeight-1)) {
                 			for(int i = -1; i < 2; i++) {
                     				for(int j = -1; j < 2; j++) {
                         				sum += kernel[i+1][j+1]*inimg[(x-i*elemSize)+(y-j)*size+z];
                     				}
                 			}
                 			outimg[x+y*size+z] = sum;
-            			}
-        		}
-    		}         
+            			} else if (y == 0) {
+					if (x == 0) {
+						arr[0] = arr[1] = arr[3] = arr[4] = inimg[x+y*size+z];
+						arr[2] = arr[5] = inimg[x+1*elemSize+y*size+z];
+						arr[6] = arr[7] = inimg[x+(y+1)*size+z];
+						arr[8] = inimg[x+1*elemSize+(y+1)*size+z];
+					} else if ((x>0) && (x<(bmpInfoHeader.biWidth-1)*elemSize)) {
+						arr[0] = arr[3] = inimg[x-1*elemSize+y*size+z];
+						arr[1] = arr[4] = inimg[x+y*size+z];
+						arr[2] = arr[5] = inimg[x+1*elemSize+y*size+z];
+						arr[6] = inimg[x-1*elemSize+(y+1)*size+z];
+						arr[7] = inimg[x+(y+1)*size+z];
+						arr[8] = inimg[x+1*elemSize+(y+1)*size+z];
+					} else {
+						arr[0] = arr[3] = inimg[x-1*elemSize+y*size+z];
+						arr[1] = arr[2] = arr[4] = arr[5] = inimg[x+y*size+z];
+						arr[6] = inimg[x-1*elemSize+(y+1)*size+z];
+						arr[7] = arr[8] = inimg[x+(y+1)*size+z];
+					}				
+					for (int k = 0; k < 9; k++) {
+						sum += arr[k];
+					}
+					outimg[x+y*size+z] = sum / 9.;
+        			} else if (y == (bmpInfoHeader.biWidth-1)) {
+
+				}
+    			}         
+		}
 	}
 
 
