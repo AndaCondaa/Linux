@@ -13,21 +13,23 @@
 typedef unsigned char ubyte;
 
 //Cuda kernel for converting RGB image into a GreyScale image
-__global__ void Blur(ubyte *rgb, ubyte *out, int rows, int cols, int elemSize) {
+__global__ void Blur(ubyte *in, ubyte *out, int rows, int cols, int elemSize) {
 	int col = threadIdx.x + blockIdx.x * blockDim.x;
 	int row = threadIdx.y + blockIdx.y * blockDim.y;
 	int offset = (row * cols + col) * elemSize;
+	float sum = 0.0;
 
 	// Compute for only those threads which map directly to image grid
-	if (col < cols && row < rows) {
-
-		ubyte r = rgb[offset + 2];
-		ubyte g = rgb[offset + 1];
-		ubyte b = rgb[offset + 0];
-
-		out[offset+2] = LIMIT_UBYTE(r*0.393 + g*0.769 + b*0.189);
-		out[offset+1] = LIMIT_UBYTE(r*0.349 + g*0.686 + b*0.168);
-		out[offset+0] = LIMIT_UBYTE(r*0.272 + g*0.534 + b*0.131);
+	for(int z = 0; 	if((col>0 && col<(cols-1)) && (row>0 && row<(rows-1))) {
+		sum = 0.0;
+		for (int j = -1; j < 2; j++) {
+			for (int i = -1; i < 2; i++) {
+				sum += in[((col+i)+((row+j)*cols))*elemSize];
+			}
+		}
+		out[offset] = sum / 9.;
+	} else {
+		out[offset] = in[offset];
 	}
 }
 
