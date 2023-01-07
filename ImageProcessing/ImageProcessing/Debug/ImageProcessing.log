@@ -1,0 +1,7 @@
+﻿  homework1.c
+C:\Users\KOSA\Desktop\영상처리과제\ImageProcessing\ImageProcessing\bmpHeader.h(4,44): error C2054: '__packed__' 다음에 '('가 필요합니다.
+C:\Users\KOSA\Desktop\영상처리과제\ImageProcessing\ImageProcessing\homework1.c(20,19): error C2146: 구문 오류: ';'이(가) 'bmpHeader' 식별자 앞에 없습니다.
+C:\Users\KOSA\Desktop\영상처리과제\ImageProcessing\ImageProcessing\homework1.c(20,28): error C2065: 'bmpHeader': 선언되지 않은 식별자입니다.
+C:\Users\KOSA\Desktop\영상처리과제\ImageProcessing\ImageProcessing\homework1.c(38,18): error C2065: 'bmpHeader': 선언되지 않은 식별자입니다.
+C:\Users\KOSA\Desktop\영상처리과제\ImageProcessing\ImageProcessing\homework1.c(65,19): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\Users\KOSA\Desktop\영상처리과제\ImageProcessing\ImageProcessing\homework1.c(32,14): error C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.

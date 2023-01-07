@@ -60,7 +60,7 @@ int main(int argc, char **argv)
 	
 	// Read/Write를 위한 버퍼공간 생성 및 초기화
 	inImage = (unsigned char*)malloc(sizeof(unsigned char) * bmpInfoHeader.SizeImage); 
-	outImage = (unsigned char*)malloc(sizeof(unsigned char) * pixelCount);
+	outImage = (unsigned char*)malloc(sizeof(unsigned char) * pixelCount * 1);
 	memset(inImage, 0, bmpInfoHeader.SizeImage);
 	memset(outImage, 0, pixelCount);
 
@@ -77,7 +77,7 @@ int main(int argc, char **argv)
 	}
 
 	// RGB값을 읽어서, 그레이스케일로 변환
-	for (int y = bmpInfoHeader.biHeight-1; y >= 0 ; y--) {
+	for (int y = 0; y < bmpInfoHeader.biHeight; y++) {
 		for (int x = 0; x < bmpInfoHeader.biWidth; x++) { 
 			index = (x * Bpp) + (y * widthBytes);
 			int r = inImage[index+2];
