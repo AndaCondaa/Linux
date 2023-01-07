@@ -64,8 +64,8 @@ int main(int argc, char **argv)
 	for (int y=bmpInfoHeader.biHeight-1; y >= 0 ; y--) {
 		for (int x=0; x < bmpInfoHeader.biWidth; x++) { 
 			index = (x*3) + (y*widthBytes); 
-			printf("(r = %3d, g = %3d, b = %3d)\n",
-	       			inImage[index+2], inImage[index+1], inImage[index]);
+			printf("POS = %3d, %3d : (r = %3d, g = %3d, b = %3d)\n",
+	       			x, 511 - y, inImage[index+2], inImage[index+1], inImage[index]);
 		}
 	}
 
